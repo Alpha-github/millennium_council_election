@@ -1,6 +1,5 @@
 from flask import Flask, render_template, json, flash, jsonify, request, url_for, Response, redirect
 from flask import flash
-from flask_sqlalchemy import SQLAlchemy
 import os, csv
 
 app = Flask(__name__, static_folder = "static", template_folder='templates')
@@ -19,33 +18,7 @@ def csvWriter(data, filename):
 def csvWriterSTRING(data, filename):
     with open(filename, 'a') as csvfileWSTR:
         csvfileWSTR.write(data)
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///site.db"
-
-# db= SQLAlchemy(app)
-
-# class Identity(db.Model):
-#     #id = db.Column(db.Integer)
-#     usn = db.Column(db.Integer,unique = True, nullable = False, primary_key = True)
-#     name = db.Column(db.String(),nullable = False)
-#     person = db.relationship("Vote", backref='name', lazy = True)
-
-#     def __repr__(self):
-#         return f"USN('{self.name}')"
-
-# class Vote(db.Model):
-#     user_id = db.column(db.Integer,db.ForeignKey('identity.usn'))
-#     acsg = db.Column(db.Integer(),nullable = False)
-#     acsb = db.Column(db.Integer(),nullable = False)
-#     asplb = db.Column(db.Integer(),nullable = False)
-#     asplg = db.Column(db.Integer(),nullable = False)
-#     assb = db.Column(db.Integer(),nullable = False)
-#     ass = db.Column(db.Integer(),nullable = False)
-#     acs = db.Column(db.Integer(),nullable = False)
-#     acs = db.Column(db.Integer(),nullable = False)
-
-
-    
+###############################################################    
 @app.route("/", methods = ["POST","GET"])
 def form():         
     return render_template("login.html")
