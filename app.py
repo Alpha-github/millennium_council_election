@@ -166,12 +166,6 @@ def login():
 def forfeit():
     return render_template("forfeit.html")
 
-# def forfeit_data(usnEntered):
-#     if "critical_act" in request.form:
-#         return redirect(url_for('thank')) 
-
-
-
 @app.route('/thank',methods=["POST","GET"]) # need to modify
 def thank():
     if request.method == "POST":
