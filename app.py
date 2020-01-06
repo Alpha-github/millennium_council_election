@@ -47,9 +47,8 @@ def csvWriterSTRING(data, filename):
 
     
 @app.route("/", methods = ["POST","GET"])
-def form():
-    if request.method == "POST" or request.method == "GET":           
-        return render_template("login.html")
+def form():         
+    return render_template("login.html")
 
 @app.route("/splb", methods = ["POST","GET"])
 def splb():
