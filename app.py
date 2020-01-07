@@ -1,6 +1,5 @@
 from flask import Flask, render_template, json, flash, jsonify, request, url_for, Response, redirect
 from flask import flash
-from flask_sqlalchemy import SQLAlchemy
 import os, csv
 
 app = Flask(__name__, static_folder = "static", template_folder='templates')
@@ -9,7 +8,7 @@ app.config['SECRET_KEY']= 'sdfvbukjfn738uif78g2ne8ivb78er'
 baseFile = 'data/valid-db.csv'
 cacheFile = 'data/cache-db.csv'
 dataFile = 'data/data-cache.csv'
-
+#############################################################################
 #CSV-FUNCTIONS
 def csvWriter(data, filename):
     with open(filename, 'a') as csvfileW:
