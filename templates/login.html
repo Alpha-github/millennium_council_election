@@ -12,15 +12,24 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body style="background-color: #ff99ff">
+<style>
+body {
+    background-image: url('static/img/elec.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+    border-color: red green blue yellow;
+  } 
+</style>
+<body >
     <div class = "main">
 
-        <p class = 'text-center'>LOGIN:</p>
+        <h1><p class = 'text-center'>LOGIN</p></h1>
     </div>
     <div class = "check">
       <div class = 'text-center'>
         <form name = "mainform" id = "formlog" action = "/login" method = "POST" >
-            USN:<input type = "text"  placeholder="Enter your USN" name = "pwd" maxlength="6">
+            <input type = "text"  placeholder="Enter your USN" name = "pwd" maxlength="6">
             <input type = "submit" value = "Log in" >
         </form>
       </div>
