@@ -48,6 +48,11 @@
   color: black;
 }
 
+.grid-container{
+  display: grid;
+  justify-content: space-evenly;
+}
+
 .flip-card-back {
   background-color: #2980b9;
   color: white;
@@ -106,8 +111,23 @@
         {% endwith %}
     </div>
 
-    <div class = "container">
+    <div class = "grid-container">
+      <form name ="vote-form" method ="POST" id = "formidk">
+      <div class='grid-item'>
+      <div class="flip-card1" align="right">
+        <div class="flip-card-inner1">
+          <div class="flip-card-front1">
+            <img src="../static/img/vote.jpg" alt="Avatar" style="width:300px;height:300px;">
+          </div>
+          <div class="flip-card-back1">
+              <button name = "vote_check" class="btn btn-primary mb-2"  id = "act4" onclick = "vote(this);">CONFIRM</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      </form>
         <form id = "forft"  method = "POST" name = "forft_opt">
+        <div class='grid-item'>
         <div class="flip-card" align="left">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -118,19 +138,9 @@
               </div>
           </div>
         </div>
+      </div>
     </form>
-        <form name ="vote-form" method ="POST" id = "formidk">
-        <div class="flip-card1" align="right">
-          <div class="flip-card-inner1">
-            <div class="flip-card-front1">
-              <img src="../static/img/vote.jpg" alt="Avatar" style="width:300px;height:300px;">
-            </div>
-            <div class="flip-card-back1">
-                <button name = "vote_check" class="btn btn-primary mb-2"  id = "act4" onclick = "vote(this);">CONFIRM</button>
-            </div>
-          </div>
-        </div>
-        </form>
+
     </div>
 <script>
         function forft_check(elt){
