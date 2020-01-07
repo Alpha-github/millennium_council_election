@@ -127,6 +127,42 @@ def assg():
         csvWriter(getPollVal, dataFile)
     return render_template("assg.html", title = "assg")
 
+@app.route('/in_pres',methods=["POST","GET"])
+def in_pres():
+    if request.method == "POST":
+        if "name1" in request.form: getPollVal="1"
+        if "name2" in request.form: getPollVal="2"
+        if "name3" in request.form: getPollVal="3"
+        csvWriter(getPollVal, dataFile)
+    return render_template("in_pres.html", title = "President")
+
+@app.route('/in_vpres',methods=["POST","GET"])
+def in_vpres():
+    if request.method == "POST":
+        if "name1" in request.form: getPollVal="1"
+        if "name2" in request.form: getPollVal="2"
+        if "name3" in request.form: getPollVal="3"
+        csvWriter(getPollVal, dataFile)
+    return render_template("in_vpres.html", title = "Vice President")
+
+@app.route('/in_sec',methods=["POST","GET"])
+def in_sec():
+    if request.method == "POST":
+        if "name1" in request.form: getPollVal="1"
+        if "name2" in request.form: getPollVal="2"
+        if "name3" in request.form: getPollVal="3"
+        csvWriter(getPollVal, dataFile)
+    return render_template("in_sec.html", title = "Secretary")
+
+@app.route('/in_tres',methods=["POST","GET"])
+def in_tres():
+    if request.method == "POST":
+        if "name1" in request.form: getPollVal="1"
+        if "name2" in request.form: getPollVal="2"
+        if "name3" in request.form: getPollVal="3"
+        csvWriter(getPollVal, dataFile)
+    return render_template("in_tres.html", title = "Treasurer")
+
 @app.route('/login',methods = ["POST"])
 def login():
     if request.method == "POST":
@@ -193,6 +229,10 @@ def thank():
                 csvWriterSTRING('\n', 'data/forfeit-db.csv')
                 return render_template("thank.html")
         except:
+            if "name1" in request.form: getPollVal="1"
+            if "name2" in request.form: getPollVal="2"
+            if "name3" in request.form: getPollVal="3"
+            csvWriter(getPollVal, dataFile)
             with open(dataFile) as datafileR:
                 readdataCSV = csv.reader(datafileR, delimiter=',')
                 cacheData = []
