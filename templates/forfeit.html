@@ -108,15 +108,7 @@
 
     <div class = "container">
         <form id = "forft"  method = "POST" name = "forft_opt">
-            <!-- <button type ="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">FORFEI</button>
-            <div id="demo" class="collapse">
-
-            Description:
-
-
-            <button name = "critical_act" class="btn btn-primary mb-2"  id = "act2" onclick = "forft_check(this);">CONFIRM</button>
-        </div> -->
-        <div class="flip-card">
+        <div class="flip-card" align="left">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img src="../static/img/NOTA.png" alt="Avatar" style="width:300px;height:300px;">
@@ -127,8 +119,8 @@
           </div>
         </div>
     </form>
-        <form name ="vote-form">
-        <div class="flip-card1">
+        <form name ="vote-form" method ="POST" id = "formidk">
+        <div class="flip-card1" align="right">
           <div class="flip-card-inner1">
             <div class="flip-card-front1">
               <img src="../static/img/vote.jpg" alt="Avatar" style="width:300px;height:300px;">
@@ -142,8 +134,6 @@
     </div>
 <script>
         function forft_check(elt){
-            // var val = elt.value
-            // console.log(val)
             var x = confirm("Do you want to FORFEIT");
             if (x == true){
                 document.getElementById("act2").value = "forfeit";
@@ -156,10 +146,9 @@
         }
 
         function vote(elt){
-                document.getElementById("act2").value = "voting";
-                document.getElementById("forft").action = "/splb";
+                document.getElementById("act4").value = "voting";
+                document.getElementById("formidk").action = "/splb";
             }
-        }
     </script>
 </body>
 </html>

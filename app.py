@@ -1,5 +1,6 @@
 from flask import Flask, render_template, json, flash, jsonify, request, url_for, Response, redirect
 from flask import flash
+from flask_sqlalchemy import SQLAlchemy
 import os, csv
 
 app = Flask(__name__, static_folder = "static", template_folder='templates')
@@ -18,15 +19,14 @@ def csvWriter(data, filename):
 def csvWriterSTRING(data, filename):
     with open(filename, 'a') as csvfileWSTR:
         csvfileWSTR.write(data)
-###############################################################    
+
 @app.route("/", methods = ["POST","GET"])
-def form():         
+def form():        
     return render_template("login.html")
 
 @app.route("/splb", methods = ["POST","GET"])
 def splb():
-    if request.form["vote_check"] == "voting":
-        return flash("Start Voting!")
+    flash("Start Voting!")
     return render_template("splb.html",title = "splb")
 
 @app.route("/splg", methods = ["POST","GET"])
@@ -132,6 +132,7 @@ def assg():
 def login():
     if request.method == "POST":
         getKey= request.form['pwd']
+        #print (getKey)
         f=open('data/usn_cache.txt','w')
         f.write(getKey)
         f.close()
@@ -142,22 +143,34 @@ def login():
                 if row==[]: continue
                 cacheUSN.append(row[0])
         if getKey in cacheUSN:
-            flash("Wrong USN!!!",category="error")
+            flash("You have already voted!!!",category="error")
             return redirect(url_for('form'))
         else:
+            with open('data/forfeit-db.csv') as csvfileR:
+                readCSV = csv.reader(csvfileR, delimiter=',')
+                forfeitUSN = []
+                for row in readCSV:
+                    if row==[]: continue
+                    forfeitUSN.append(row[0])
+            if getKey in forfeitUSN:
+                flash("You have forfeited!!",category="error")
+                return redirect(url_for('form'))
             f = open(dataFile, "w")
             f.truncate()
             f.close()
             with open(baseFile) as csvfileBase:
                 baseUSN=[]
+                baseName=[]
                 readBaseCSV = csv.reader(csvfileBase, delimiter=',')
                 for baseRow in readBaseCSV:
-                    baseUSN.append(baseRow[0])
-            if getKey in baseUSN:
-                csvWriterSTRING(getKey, dataFile)
-                csvWriter('', dataFile)
-                flash("LOGGED IN")
-                return redirect(url_for('forfeit'))
+                    baseUSN.append(str(baseRow[0]))
+                    baseName.append(str(baseRow[1]))
+            for i in range(len(baseUSN)):
+                if getKey==baseUSN[i]:
+                    csvWriterSTRING(getKey, dataFile)
+                    csvWriter('', dataFile)
+                    flash(baseName[i]+" IS LOGGED IN")
+                    return redirect(url_for('forfeit'))
             else: 
                 flash("Wrong USN!!!",category="error")
                 return redirect(url_for('form'))
@@ -169,25 +182,28 @@ def forfeit():
 @app.route('/thank',methods=["POST","GET"]) # need to modify
 def thank():
     if request.method == "POST":
-        if request.form["critical_act"]=="forfeit":
-            f=open('data/usn_cache.txt','r')
-            usnEntered=None
-            for line in f:
-                line=line.strip('\n')
-                usnEntered=line
-            csvWriterSTRING(usnEntered, 'data/forfeit-db.csv')
-            csvWriterSTRING('', 'data/forfeit-db.csv')
-            return render_template("thank.html")
-        with open(dataFile) as datafileR:
-            readdataCSV = csv.reader(datafileR, delimiter=',')
-            cacheData = []
-            for row in readdataCSV:
-                if row==[]: continue
-                cacheData.append(row[0])
-        csvWriter(cacheData, cacheFile)
-        if(request.form == True):
-            return render_template("thank.html", title = "Thank You")
-    return render_template("thank.html", title = "Thank You")
+        try: 
+            req=request.form["critical_act"]    
+            if req=="forfeit":
+                f=open('data/usn_cache.txt','r')
+                usnEntered=None
+                for line in f:
+                    line=line.strip('\n')
+                    usnEntered=line
+                csvWriterSTRING(usnEntered, 'data/forfeit-db.csv')
+                csvWriterSTRING('\n', 'data/forfeit-db.csv')
+                return render_template("thank.html")
+        except:
+            with open(dataFile) as datafileR:
+                readdataCSV = csv.reader(datafileR, delimiter=',')
+                cacheData = []
+                for row in readdataCSV:
+                    if row==[]: continue
+                    cacheData.append(row[0])
+            csvWriter(cacheData, cacheFile)
+            if(request.form == True):
+                return render_template("thank.html", title = "Thank You")
+        return render_template("thank.html", title = "Thank You")
     
 if __name__ == '__main__':
-    app.run(host="0.0.0.0" , port = 4000)
+    app.run(host="0.0.0.0" , port = 4000, debug = True) 
