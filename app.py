@@ -1,7 +1,6 @@
-from flask import Flask, render_template, json, flash, jsonify, request, url_for, Response, redirect
+from flask import Flask, render_template, request, url_for, redirect
 from flask import flash
-from flask_sqlalchemy import SQLAlchemy
-import os, csv
+import csv
 
 app = Flask(__name__, static_folder = "static", template_folder='templates')
 app.config['SECRET_KEY']= 'sdfvbukjfn738uif78g2ne8ivb78er'
@@ -21,7 +20,7 @@ def csvWriterSTRING(data, filename):
         csvfileWSTR.write(data)
 
 @app.route("/", methods = ["POST","GET"])
-def form():        
+def form():
     return render_template("login.html")
 
 @app.route("/splb", methods = ["POST","GET"])
@@ -171,10 +170,10 @@ def login():
                     csvWriter('', dataFile)
                     flash(baseName[i]+" IS LOGGED IN")
                     return redirect(url_for('forfeit'))
-            else: 
+            else:
                 flash("Wrong USN!!!",category="error")
                 return redirect(url_for('form'))
-            
+
 @app.route('/forfeit', methods=["POST","GET"])
 def forfeit():
     return render_template("forfeit.html")
@@ -182,8 +181,8 @@ def forfeit():
 @app.route('/thank',methods=["POST","GET"]) # need to modify
 def thank():
     if request.method == "POST":
-        try: 
-            req=request.form["critical_act"]    
+        try:
+            req=request.form["critical_act"]
             if req=="forfeit":
                 f=open('data/usn_cache.txt','r')
                 usnEntered=None
@@ -204,6 +203,6 @@ def thank():
             if(request.form == True):
                 return render_template("thank.html", title = "Thank You")
         return render_template("thank.html", title = "Thank You")
-    
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0" , port = 4000, debug = True) 
+    app.run(host="0.0.0.0" , port = 4000, debug = True)
