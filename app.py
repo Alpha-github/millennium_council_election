@@ -3,8 +3,8 @@ from flask import flash
 import csv
 
 #flask_app_declaration
-baseApp = Flask(__name__, static_folder = 'static', template_folder='templates')
-baseApp.config['SECRET_KEY']= 'sdfvbukjfn738uif78g2ne8ivb78er'
+app = Flask(__name__, static_folder = 'static', template_folder='templates')
+app.config['SECRET_KEY']= 'sdfvbukjfn738uif78g2ne8ivb78er'
 
 #external_file_declarations
 baseFile = 'data/valid_db.csv'
@@ -26,18 +26,18 @@ def csvWriterSTRING(data, filename):
         csvfileWSTR.write(data)
 
 #landing_login_page_render
-@baseApp.route('/', methods = ['POST','GET'])
+@app.route('/', methods = ['POST','GET'])
 def rootForm():
     return render_template('__login_page.html')
 
 #poll_page
-@baseApp.route('/spl-b', methods = ['POST','GET'])
+@app.route('/spl-b', methods = ['POST','GET'])
 def spl_b():
     flash('Start Voting!')
     return render_template('poll-pages/spl_b.html',title = 'spl_b')
 
 #poll_page
-@baseApp.route('/spl-g', methods = ['POST','GET'])
+@app.route('/spl-g', methods = ['POST','GET'])
 def spl_g():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -47,7 +47,7 @@ def spl_g():
     return render_template('poll-pages/spl_g.html', title = 'spl_g')
 
 #poll_page
-@baseApp.route('/cs-b',methods=['POST','GET'])
+@app.route('/cs-b',methods=['POST','GET'])
 def cs_b():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -57,7 +57,7 @@ def cs_b():
     return render_template('poll-pages/cs_b.html', title = 'cs_b')
 
 #poll_page
-@baseApp.route('/cs-g',methods=['POST','GET'])
+@app.route('/cs-g',methods=['POST','GET'])
 def cs_g():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -67,7 +67,7 @@ def cs_g():
     return render_template('poll-pages/cs_g.html', title = 'cs_g')
 
 #poll_page
-@baseApp.route('/ss-b',methods=['POST','GET'])
+@app.route('/ss-b',methods=['POST','GET'])
 def ss_b():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -79,7 +79,7 @@ def ss_b():
     return render_template('poll-pages/ss_b.html', title = 'ss_b')
 
 #poll_page
-@baseApp.route('/ss-g',methods=['POST','GET'])
+@app.route('/ss-g',methods=['POST','GET'])
 def ss_g():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -89,7 +89,7 @@ def ss_g():
     return render_template('poll-pages/ss_g.html', title = 'ss_g')
 
 #poll_page
-@baseApp.route('/aspl-b',methods=['POST','GET'])
+@app.route('/aspl-b',methods=['POST','GET'])
 def aspl_b():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -98,7 +98,7 @@ def aspl_b():
     return render_template('poll-pages/aspl_b.html', title = 'aspl_b')
 
 #poll_page
-@baseApp.route('/aspl-g',methods=['POST','GET'])
+@app.route('/aspl-g',methods=['POST','GET'])
 def aspl_g():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -108,7 +108,7 @@ def aspl_g():
     return render_template('poll-pages/aspl_g.html', title = 'aspl_g')
 
 #poll_page
-@baseApp.route('/acs-b',methods=['POST','GET'])
+@app.route('/acs-b',methods=['POST','GET'])
 def acs_b():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -120,7 +120,7 @@ def acs_b():
     return render_template('poll-pages/acs_b.html', title = 'acs_b')
 
 #poll_page
-@baseApp.route('/acs-g',methods=['POST','GET'])
+@app.route('/acs-g',methods=['POST','GET'])
 def acs_g():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -130,7 +130,7 @@ def acs_g():
     return render_template('poll-pages/acs_g.html', title = 'acs_g')
 
 #poll_page
-@baseApp.route('/ass-b',methods=['POST','GET'])
+@app.route('/ass-b',methods=['POST','GET'])
 def ass_b():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -141,7 +141,7 @@ def ass_b():
     return render_template('poll-pages/ass_b.html', title = 'ass_b')
 
 #poll_page
-@baseApp.route('/ass-g',methods=['POST','GET'])
+@app.route('/ass-g',methods=['POST','GET'])
 def ass_g():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -151,7 +151,7 @@ def ass_g():
     return render_template('poll-pages/ass_g.html', title = 'ass_g')
 
 #poll_page
-@baseApp.route('/in-pres',methods=['POST','GET'])
+@app.route('/in-pres',methods=['POST','GET'])
 def in_pres():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -162,7 +162,7 @@ def in_pres():
     return render_template('poll-pages/in_pres.html', title = 'President')
 
 #poll_page
-@baseApp.route('/in-vpres',methods=['POST','GET'])
+@app.route('/in-vpres',methods=['POST','GET'])
 def in_vpres():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -172,7 +172,7 @@ def in_vpres():
     return render_template('poll-pages/in_vpres.html', title = 'Vice President')
 
 #poll_page
-@baseApp.route('/in-sec',methods=['POST','GET'])
+@app.route('/in-sec',methods=['POST','GET'])
 def in_sec():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -181,7 +181,7 @@ def in_sec():
     return render_template('poll-pages/in_sec.html', title = 'Secretary')
 
 #poll_page
-@baseApp.route('/in-tres',methods=['POST','GET'])
+@app.route('/in-tres',methods=['POST','GET'])
 def in_tres():
     if request.method == 'POST':
         if 'name1' in request.form: getPollVal='1'
@@ -190,7 +190,7 @@ def in_tres():
     return render_template('poll-pages/in_tres.html', title = 'Treasurer')
 
 #login_request_handler
-@baseApp.route('/login',methods = ['POST', 'GET'])
+@app.route('/login',methods = ['POST', 'GET'])
 def login():
     if request.method == 'POST':
         getKey= request.form['pwd']
@@ -237,12 +237,12 @@ def login():
                 return redirect(url_for('rootForm'))
 
 #forfeit_option_render
-@baseApp.route('/forfeit-option', methods=['POST','GET'])
+@app.route('/forfeit-option', methods=['POST','GET'])
 def forfeitOption():
     return render_template('forfeit_option_page.html')
 
 #poll_end_page
-@baseApp.route('/thank-you',methods=['POST','GET']) # need to modify
+@app.route('/thank-you',methods=['POST','GET']) # need to modify
 def thank():
     if request.method == 'POST':
         try:
@@ -273,4 +273,4 @@ def thank():
 
 #app_init
 if __name__ == '__main__':
-    baseApp.run(host='0.0.0.0' , port=5000, debug=True)
+    app.run(host='0.0.0.0' , port=5000, debug=True)
