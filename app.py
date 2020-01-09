@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask import flash
 import csv
+import os
 
+x=os.environ["admin_pwd"]
 #flask_app_declaration
 app = Flask(__name__, static_folder = 'static', template_folder='templates')
 app.config['SECRET_KEY']= 'sdfvbukjfn738uif78g2ne8ivb78er'
@@ -240,6 +242,22 @@ def login():
 @app.route('/forfeit-option', methods=['POST','GET'])
 def forfeitOption():
     return render_template('forfeit_option_page.html')
+#admin_login page   
+@app.route("/admin_pg")
+def random_func():
+    return render_template("admin_login.html")
+@app.route("/check_password", methods=['POST','GET'])
+def admin_login():
+    if request.method=="POST":
+        if request.form['admin_pwd']==x:
+            flash("Here you go !!!")
+            return redirect(url_for('resultpg'))
+        else:
+            flash('wrong password!!')
+            return redirect(url_for('random_func'))  
+@app.route("/resultpg", methods=['POST','GET'])
+def resultpg():
+    return render_template("resultpg.html")
 
 #poll_end_page
 @app.route('/thank-you',methods=['POST','GET']) # need to modify

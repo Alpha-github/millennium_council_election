@@ -1,0 +1,58 @@
+<head>
+    <title>Admin Log In</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+   	<!--Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class = "flash_msg">
+        {%  with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class =flashes>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+    <style>
+      body {
+        background-image: linear-gradient(to bottom right, blue,purple,white);
+      }
+    </style>
+    <div class = "main">
+
+        <p class = 'text-center'>Admin Log In:</p>
+    </div>
+    <div class = "check">
+      <div class = 'text-center'>
+        <form name = "mainform" id = "adlog" action = "/check_password" method = "POST" >
+            USN:<input type = "password"  placeholder="admin passsword" name = "admin_pwd" maxlength="6">
+            <input type = "submit" value = "Log in" >
+        </form>
+      </div>
+    </div>
+    <!--
+    <div class = "container">
+        <form id = "forft"  method = "POST" name = "forft_opt">
+            <button type ="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">FORFEI</button>
+            <div id="demo" class="collapse">
+
+            Description:
+
+
+            <button name = "critical_act" class="btn btn-primary mb-2"  id = "act2" onclick = "forft_check(this);">CONFIRM</button>
+        </div>
+        </form>
+    </div>
+    !-->
+    
+</body>
